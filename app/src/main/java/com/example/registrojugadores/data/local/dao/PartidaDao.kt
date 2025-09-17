@@ -2,7 +2,10 @@ package com.example.registrojugadores.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import androidx.room.Upsert
 import com.example.registrojugadores.data.local.entities.PartidaEntity
 import kotlinx.coroutines.flow.Flow
@@ -23,5 +26,11 @@ interface PartidaDao {
 
     @Query("DELETE FROM partidas WHERE partidaId = :id")
     suspend fun deleteById(id: Int)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(entity: PartidaEntity): Long
+
+    @Update
+    suspend fun update(entity: PartidaEntity): Int
 
 }

@@ -12,7 +12,7 @@ import com.example.registrojugadores.data.local.entities.PartidaEntity
         JugadorEntity::class,
         PartidaEntity::class
     ],
-    version = 4,
+    version = 3,
     exportSchema = false
 )
 abstract class JugadorDb : RoomDatabase(){

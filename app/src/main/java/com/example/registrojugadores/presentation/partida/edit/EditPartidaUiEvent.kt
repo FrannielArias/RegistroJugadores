@@ -14,4 +14,6 @@ interface EditPartidaUiEvent {
     data object Save: EditPartidaUiEvent
     data object Delete: EditPartidaUiEvent
     data object Cancel: EditPartidaUiEvent
+
+    data class CargarJugadores(val value: Unit) : EditPartidaUiEvent
 }

@@ -2,6 +2,7 @@ package com.example.registrojugadores.presentation.partida.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.registrojugadores.domain.jugador.repository.JugadorRepository
 import com.example.registrojugadores.domain.partida.useCase.DeletePartidaUseCase
 import com.example.registrojugadores.domain.partida.useCase.ObservePartidaUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,14 +16,16 @@ import javax.inject.Inject
 @HiltViewModel
 class ListPartidaViewModel @Inject constructor(
     private val observePartidaUseCase: ObservePartidaUseCase,
-    private val deletePartidaByIdUseCase: DeletePartidaUseCase
+    private val deletePartidaByIdUseCase: DeletePartidaUseCase,
+    private val jugadorRepository: JugadorRepository
 ): ViewModel() {
-    private val _state = MutableStateFlow(ListPartidaUiState(true))
+    private val _state = MutableStateFlow(ListPartidaUiState(isLoading = true))
 
     val state: StateFlow<ListPartidaUiState> = _state.asStateFlow()
 
     init {
         onEvent(ListPartidaUiEvent.Load)
+        loadJugadores() // ¡AGREGAR ESTO!
     }
 
     fun onEvent(event: ListPartidaUiEvent){
@@ -39,6 +42,14 @@ class ListPartidaViewModel @Inject constructor(
         viewModelScope.launch{
             observePartidaUseCase().collect{ list ->
                 _state.update { it.copy(isLoading = false, partidas = list, message = null) }
+            }
+        }
+    }
+
+    private fun loadJugadores() {
+        viewModelScope.launch {
+            jugadorRepository.observeJugador().collect { jugadores ->
+                _state.update { it.copy(jugadores = jugadores) }
             }
         }
     }

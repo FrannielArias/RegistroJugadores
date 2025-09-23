@@ -20,9 +20,16 @@ class PartidaRepositoryImpl @Inject constructor(
     override suspend fun getPartida(id: Int?): Partida? = dao.getById(id)?.toDomain()
 
     override suspend fun upsert(partida: Partida): Int {
-        dao.upsert(partida.toEntity())
-        return partida.partidaId
-    }
+        val entity = partida.toEntity()
+
+        return if (entity.partidaId == 0) {
+            val newId = dao.insert(entity)
+            newId.toInt()
+        } else {
+            dao.update(entity)
+            entity.partidaId
+        }
+}
 
     override suspend fun delete(partida: Partida) {
         dao.delete(partida.toEntity())

@@ -3,7 +3,7 @@ package com.example.registrojugadores.di
 import android.content.Context
 
 import androidx.room.Room
-import com.example.registrojugadores.data.local.database.JugadorDb
+import com.example.registrojugadores.data.database.JugadorDb
 import dagger.Provides
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -29,4 +29,7 @@ object ApiModule {
 
     @Provides
     fun providePartidaDao(jugadorDb: JugadorDb) = jugadorDb.partidaDao()
+
+    @Provides
+    fun provideLogroDao(jugadorDb: JugadorDb) = jugadorDb.logroDao()
 }

@@ -1,6 +1,6 @@
-package com.example.registrojugadores.data.mapper.partida
+package com.example.registrojugadores.data.partidas.mapper
 
-import com.example.registrojugadores.data.local.entities.PartidaEntity
+import com.example.registrojugadores.data.partidas.local.PartidaEntity
 import com.example.registrojugadores.domain.partida.model.Partida
 
 fun PartidaEntity.toDomain(): Partida = Partida(

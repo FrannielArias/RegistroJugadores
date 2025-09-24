@@ -59,11 +59,14 @@ dependencies {
     // Serialization
     implementation(libs.kotlin.serialization.json)
 
-    // Room - CORREGIDO: eliminé la duplicación
     implementation("androidx.room:room-runtime:2.6.1")
     implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     ksp("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.51")

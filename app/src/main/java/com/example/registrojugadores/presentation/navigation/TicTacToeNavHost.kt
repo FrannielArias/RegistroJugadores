@@ -12,6 +12,7 @@ import com.example.registrojugadores.presentation.jugador.JugadoresScreen
 import com.example.registrojugadores.presentation.jugador.edit.EditJugadorScreen
 import com.example.registrojugadores.presentation.jugador.edit.EditJugadorViewModel
 import com.example.registrojugadores.presentation.jugador.list.ListJugadorViewModel
+import com.example.registrojugadores.presentation.logros.LogroScreen
 import com.example.registrojugadores.presentation.partida.PartidaScreen
 import com.example.registrojugadores.presentation.partida.edit.EditPartidaScreen
 import com.example.registrojugadores.presentation.partida.edit.EditPartidaViewModel
@@ -61,6 +62,16 @@ fun TicTacToeNavHost(
                     listPartidaViewModel
                 )
             }
+            composable<Screen.Logros> {
+                LogroScreen(
+                    onDrawer = {
+                        scope.launch {
+                            drawerState.open()
+                        }
+                    }
+                )
+            }
+
         }
 
     }

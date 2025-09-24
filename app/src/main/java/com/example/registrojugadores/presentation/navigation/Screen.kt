@@ -8,4 +8,7 @@ sealed class Screen {
 
     @Serializable
     object Partidas : Screen()
+
+    @Serializable
+    object Logros : Screen()
 }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -73,6 +74,14 @@ fun DrawerMenu(
                             isSelected = selectedItem.value == stringResource(R.string.drawer_partidas)
                         ) {
                             handleItemClick(Screen.Partidas, it)
+                        }
+
+                        DrawerItem(
+                            title = stringResource(R.string.drawer_logros),
+                            icon = Icons.Filled.Star,
+                            isSelected = selectedItem.value == stringResource(R.string.drawer_logros)
+                        ){
+                            handleItemClick(Screen.Logros, it)
                         }
 
                     }

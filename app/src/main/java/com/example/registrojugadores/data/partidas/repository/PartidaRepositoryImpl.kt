@@ -1,9 +1,8 @@
-package com.example.registrojugadores.data.repository.partida
+package com.example.registrojugadores.data.partidas.repository
 
-import com.example.registrojugadores.data.local.dao.PartidaDao
-import com.example.registrojugadores.data.mapper.jugador.toEntity
-import com.example.registrojugadores.data.mapper.partida.toDomain
-import com.example.registrojugadores.data.mapper.partida.toEntity
+import com.example.registrojugadores.data.partidas.local.PartidaDao
+import com.example.registrojugadores.data.partidas.mapper.toDomain
+import com.example.registrojugadores.data.partidas.mapper.toEntity
 import com.example.registrojugadores.domain.partida.model.Partida
 import com.example.registrojugadores.domain.partida.repository.PartidaRepository
 import kotlinx.coroutines.flow.Flow

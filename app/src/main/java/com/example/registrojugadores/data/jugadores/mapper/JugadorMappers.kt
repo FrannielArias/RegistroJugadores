@@ -1,6 +1,6 @@
-package com.example.registrojugadores.data.mapper.jugador
+package com.example.registrojugadores.data.jugadores.mapper
 
-import com.example.registrojugadores.data.local.entities.JugadorEntity
+import com.example.registrojugadores.data.jugadores.local.JugadorEntity
 import com.example.registrojugadores.domain.jugador.model.Jugador
 
 fun JugadorEntity.toDomain(): Jugador = Jugador(

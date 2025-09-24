@@ -1,4 +1,4 @@
-package com.example.registrojugadores.data.local.entities
+package com.example.registrojugadores.data.jugadores.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

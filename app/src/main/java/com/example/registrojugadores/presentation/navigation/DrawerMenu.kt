@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
@@ -82,6 +83,14 @@ fun DrawerMenu(
                             isSelected = selectedItem.value == stringResource(R.string.drawer_logros)
                         ){
                             handleItemClick(Screen.Logros, it)
+                        }
+
+                        DrawerItem(
+                            title = stringResource(R.string.drawer_ticTacToe),
+                            icon = Icons.Filled.Dashboard,
+                            isSelected = selectedItem.value == stringResource(R.string.drawer_ticTacToe)
+                        ){
+                            handleItemClick(Screen.TicTacToe, it)
                         }
 
                     }

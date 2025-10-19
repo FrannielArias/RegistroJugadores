@@ -11,4 +11,7 @@ sealed class Screen {
 
     @Serializable
     object Logros : Screen()
+
+    @Serializable
+    object TicTacToe : Screen()
 }

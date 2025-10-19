@@ -14,9 +14,11 @@ import com.example.registrojugadores.presentation.jugador.edit.EditJugadorViewMo
 import com.example.registrojugadores.presentation.jugador.list.ListJugadorViewModel
 import com.example.registrojugadores.presentation.logros.LogroScreen
 import com.example.registrojugadores.presentation.partida.PartidaScreen
+import com.example.registrojugadores.presentation.partida.TicTacToeScreen
 import com.example.registrojugadores.presentation.partida.edit.EditPartidaScreen
 import com.example.registrojugadores.presentation.partida.edit.EditPartidaViewModel
 import com.example.registrojugadores.presentation.partida.list.ListPartidaViewModel
+import com.example.registrojugadores.presentation.tictactoe.GameViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -31,6 +33,9 @@ fun TicTacToeNavHost(
 
     val editPartidaViewModel: EditPartidaViewModel = hiltViewModel()
     val listPartidaViewModel: ListPartidaViewModel = hiltViewModel()
+
+    val gameViewModel: GameViewModel = hiltViewModel()
+
 
     DrawerMenu(
         drawerState = drawerState,
@@ -69,6 +74,16 @@ fun TicTacToeNavHost(
                             drawerState.open()
                         }
                     }
+                )
+            }
+            composable<Screen.TicTacToe> {
+                TicTacToeScreen(
+                    onDrawer = {
+                        scope.launch {
+                            drawerState.open()
+                        }
+                    },
+                    gameViewModel
                 )
             }
 

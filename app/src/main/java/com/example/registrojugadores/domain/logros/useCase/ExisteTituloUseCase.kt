@@ -9,5 +9,4 @@ class ExisteTituloUseCase @Inject constructor(
     suspend operator fun invoke(titulo: String, exclusiveId: Int? = null): Boolean {
         return repository.existeTitulo(titulo, exclusiveId)
     }
-
 }

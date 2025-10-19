@@ -19,7 +19,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.registrojugadores.ui.theme.RegistroJugadoresTheme
 
 @Composable
 fun LogroScreen(
@@ -102,12 +104,12 @@ fun LogroScreenBody(
     }
 }
 
-
-
-//@Preview
-//@Composable
-//fun LogroScreenEditPreview() {
-//    RegistroJugadoresTheme {
-//        LogroScreenBody(showEdit = false)
-//    }
-//}
+@Preview
+@Composable
+fun LogroScreenEditPreview() {
+    RegistroJugadoresTheme {
+        LogroScreen(
+            onDrawer = {}
+        )
+    }
+}

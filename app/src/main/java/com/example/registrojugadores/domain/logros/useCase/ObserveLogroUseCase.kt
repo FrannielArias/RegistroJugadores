@@ -9,5 +9,4 @@ class ObserveLogroUseCase @Inject constructor(
     private val repository: LogroRepository
 ){
     operator fun invoke(): Flow<List<Logro>> = repository.observeLogro()
-
 }

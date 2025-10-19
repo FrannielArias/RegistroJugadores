@@ -25,7 +25,7 @@ class ListPartidaViewModel @Inject constructor(
 
     init {
         onEvent(ListPartidaUiEvent.Load)
-        loadJugadores() // ¡AGREGAR ESTO!
+        loadJugadores()
     }
 
     fun onEvent(event: ListPartidaUiEvent){

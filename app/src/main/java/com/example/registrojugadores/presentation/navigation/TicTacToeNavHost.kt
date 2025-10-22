@@ -37,7 +37,6 @@ fun TicTacToeNavHost(
     val listPartidaViewModel: ListPartidaViewModel = hiltViewModel()
 
     val partidasViewModel: PartidasViewModel = hiltViewModel()
-//    val gameViewModel: GameViewModel = hiltViewModel()
 
 
     DrawerMenu(
@@ -89,19 +88,6 @@ fun TicTacToeNavHost(
                     }
                 )
             }
-
-
-
-//            composable<Screen.TicTacToe> {
-//                TicTacToeScreen(
-//                    onDrawer = {
-//                        scope.launch {
-//                            drawerState.open()
-//                        }
-//                    },
-//                    gameViewModel
-//                )
-//            }
 
         }
 

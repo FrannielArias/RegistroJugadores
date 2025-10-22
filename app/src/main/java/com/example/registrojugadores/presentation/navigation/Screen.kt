@@ -14,4 +14,8 @@ sealed class Screen {
 
     @Serializable
     object TicTacToe : Screen()
+
+    @Serializable
+    object PartidasApi : Screen()
+
 }

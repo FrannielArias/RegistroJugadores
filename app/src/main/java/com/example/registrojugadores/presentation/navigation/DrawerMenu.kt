@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.SportsEsports
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
@@ -85,13 +86,29 @@ fun DrawerMenu(
                             handleItemClick(Screen.Logros, it)
                         }
 
+//                        DrawerItem(
+//                            title = stringResource(R.string.drawer_jugadorApi),
+//                            icon = Icons.Filled.Dashboard,
+//                            isSelected = selectedItem.value == stringResource(R.string.drawer_logros)
+//                        ){
+//                            handleItemClick(Screen.JugadorApi, it)
+//                        }
                         DrawerItem(
-                            title = stringResource(R.string.drawer_ticTacToe),
-                            icon = Icons.Filled.Dashboard,
-                            isSelected = selectedItem.value == stringResource(R.string.drawer_ticTacToe)
+                            title = "Partidas TicTacToe",
+                            icon = Icons.Filled.SportsEsports,
+                            isSelected = selectedItem.value == "Partidas TicTacToe"
                         ){
-                            handleItemClick(Screen.TicTacToe, it)
+                            handleItemClick(Screen.PartidasApi, it)
                         }
+
+
+//                        DrawerItem(
+//                            title = stringResource(R.string.drawer_ticTacToe),
+//                            icon = Icons.Filled.Dashboard,
+//                            isSelected = selectedItem.value == stringResource(R.string.drawer_ticTacToe)
+//                        ){
+//                            handleItemClick(Screen.TicTacToe, it)
+//                        }
 
                     }
                 }

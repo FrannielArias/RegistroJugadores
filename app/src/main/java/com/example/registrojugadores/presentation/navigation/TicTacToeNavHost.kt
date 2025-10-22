@@ -12,13 +12,15 @@ import com.example.registrojugadores.presentation.jugador.JugadoresScreen
 import com.example.registrojugadores.presentation.jugador.edit.EditJugadorScreen
 import com.example.registrojugadores.presentation.jugador.edit.EditJugadorViewModel
 import com.example.registrojugadores.presentation.jugador.list.ListJugadorViewModel
+import com.example.registrojugadores.presentation.jugadorApi.JugadorListScreen
+import com.example.registrojugadores.presentation.jugadorApi.JugadorViewModel
 import com.example.registrojugadores.presentation.logros.LogroScreen
 import com.example.registrojugadores.presentation.partida.PartidaScreen
-import com.example.registrojugadores.presentation.partida.TicTacToeScreen
 import com.example.registrojugadores.presentation.partida.edit.EditPartidaScreen
 import com.example.registrojugadores.presentation.partida.edit.EditPartidaViewModel
 import com.example.registrojugadores.presentation.partida.list.ListPartidaViewModel
-import com.example.registrojugadores.presentation.tictactoe.GameViewModel
+import com.example.registrojugadores.presentation.partidasApi.PartidasApiScreen
+import com.example.registrojugadores.presentation.tictactoe.PartidasViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -34,7 +36,8 @@ fun TicTacToeNavHost(
     val editPartidaViewModel: EditPartidaViewModel = hiltViewModel()
     val listPartidaViewModel: ListPartidaViewModel = hiltViewModel()
 
-    val gameViewModel: GameViewModel = hiltViewModel()
+    val partidasViewModel: PartidasViewModel = hiltViewModel()
+//    val gameViewModel: GameViewModel = hiltViewModel()
 
 
     DrawerMenu(
@@ -76,16 +79,29 @@ fun TicTacToeNavHost(
                     }
                 )
             }
-            composable<Screen.TicTacToe> {
-                TicTacToeScreen(
+
+            composable<Screen.PartidasApi> {
+                PartidasApiScreen(
                     onDrawer = {
                         scope.launch {
                             drawerState.open()
                         }
-                    },
-                    gameViewModel
+                    }
                 )
             }
+
+
+
+//            composable<Screen.TicTacToe> {
+//                TicTacToeScreen(
+//                    onDrawer = {
+//                        scope.launch {
+//                            drawerState.open()
+//                        }
+//                    },
+//                    gameViewModel
+//                )
+//            }
 
         }
 

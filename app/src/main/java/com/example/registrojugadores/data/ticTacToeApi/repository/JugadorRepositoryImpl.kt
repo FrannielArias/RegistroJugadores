@@ -16,7 +16,7 @@ class JugadorRepositoryImpl @Inject constructor(
 ) : JugadorApiRepository {
 
     override suspend fun save(jugadorApi: JugadorApi): Boolean {
-        dao.save(jugadorApi.toEntity())
+        dao.upsert(jugadorApi.toEntity())
         return true
     }
 
@@ -28,8 +28,8 @@ class JugadorRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAll(): List<JugadorApi> =
-        dao.getAll().firstOrNull()?.map { it.toDomain() } ?: emptyList()
+        dao.observeAll().firstOrNull()?.map { it.toDomain() } ?: emptyList()
 
     override fun getAllFlow(): Flow<List<JugadorApi>> =
-        dao.getAll().map { entities -> entities.map(JugadorApiEntity::toDomain) }
+        dao.observeAll().map { entities -> entities.map(JugadorApiEntity::toDomain) }
 }

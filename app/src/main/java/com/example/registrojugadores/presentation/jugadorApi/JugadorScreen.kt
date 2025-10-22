@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -51,6 +52,7 @@ fun JugadorScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 20.dp, vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
@@ -63,19 +65,24 @@ fun JugadorScreen(
             }
         )
 
-        Spacer(Modifier.height(20.dp))
+        Spacer(Modifier.height(50.dp))
 
         TurnIndicator(turn = gameState.turn)
 
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(40.dp))
 
-        GameBoard(
-            board = gameState.board,
-            loading = gameState.loading,
-            onCellClick = { row, column ->
-                viewModel.play(row, column)
-            }
-        )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            GameBoard(
+                board = gameState.board,
+                loading = gameState.loading,
+                onCellClick = { row, column ->
+                    viewModel.play(row, column)
+                }
+            )
+        }
 
         gameState.error?.let { error ->
             Spacer(Modifier.height(20.dp))
@@ -114,12 +121,13 @@ private fun PartidaSelector(
             shape = RoundedCornerShape(14.dp)
         )
 
-        IconButton(
+        Button(
             onClick = {
                 text.toIntOrNull()?.let { id ->
                     onPartidaChange(id)
                 }
-            }
+            },
+            shape = RoundedCornerShape(12.dp)
         ) {
             Icon(
                 imageVector = Icons.Filled.Refresh,

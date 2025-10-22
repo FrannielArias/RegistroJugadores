@@ -1,6 +1,7 @@
 package com.example.registrojugadores.presentation.partidasApi
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
@@ -16,6 +18,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -26,6 +29,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -91,10 +95,15 @@ fun PartidasListContent(
     state: com.example.registrojugadores.presentation.tictactoe.PartidasUiState,
     onPartidaClick: (Int) -> Unit
 ) {
+    val isDarkTheme = isSystemInDarkTheme()
+
+    val cardBackgroundColor = if (isDarkTheme)
+        Color(0xFF2D2F33) else Color.White
+
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         if (state.loading) {
             item {
@@ -121,10 +130,21 @@ fun PartidasListContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { onPartidaClick(partida.partidaId) },
-                elevation = CardDefaults.cardElevation(2.dp)
+                colors = CardDefaults.cardColors(
+                    containerColor = cardBackgroundColor
+                ),
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 2.dp
+                ),
+                shape = RoundedCornerShape(12.dp)
             ) {
                 ListItem(
-                    headlineContent = { Text("Partida ${partida.partidaId}") }
+                    headlineContent = {
+                        Text("Partida ${partida.partidaId}")
+                    },
+                    colors = ListItemDefaults.colors(
+                        containerColor = Color.Transparent
+                    )
                 )
             }
         }

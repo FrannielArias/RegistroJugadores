@@ -25,6 +25,5 @@ abstract class JugadorDb : RoomDatabase(){
     abstract fun jugadorDao(): JugadorDao
     abstract fun partidaDao(): PartidaDao
     abstract fun logroDao(): LogroDao
-
     abstract fun JugadorApiDaoDao(): JugadorApiDao
 }

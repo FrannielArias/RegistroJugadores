@@ -86,13 +86,6 @@ fun DrawerMenu(
                             handleItemClick(Screen.Logros, it)
                         }
 
-//                        DrawerItem(
-//                            title = stringResource(R.string.drawer_jugadorApi),
-//                            icon = Icons.Filled.Dashboard,
-//                            isSelected = selectedItem.value == stringResource(R.string.drawer_logros)
-//                        ){
-//                            handleItemClick(Screen.JugadorApi, it)
-//                        }
                         DrawerItem(
                             title = "Partidas TicTacToe",
                             icon = Icons.Filled.SportsEsports,
@@ -101,14 +94,6 @@ fun DrawerMenu(
                             handleItemClick(Screen.PartidasApi, it)
                         }
 
-
-//                        DrawerItem(
-//                            title = stringResource(R.string.drawer_ticTacToe),
-//                            icon = Icons.Filled.Dashboard,
-//                            isSelected = selectedItem.value == stringResource(R.string.drawer_ticTacToe)
-//                        ){
-//                            handleItemClick(Screen.TicTacToe, it)
-//                        }
 
                     }
                 }

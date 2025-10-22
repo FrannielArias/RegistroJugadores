@@ -1,0 +1,120 @@
+package com.example.registrojugadores.presentation.jugadorApi
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.registrojugadores.domain.ticTacToeApi.model.JugadorApi
+
+@Composable
+fun JugadorListScreen(
+    viewModel: JugadorViewModel = hiltViewModel(),
+    goToJugadores: (Int) -> Unit,
+    createJugador: () -> Unit
+) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(state.errorMessage) {
+        state.errorMessage?.takeIf { it.isNotEmpty() }?.let { message ->
+            snackbarHostState.showSnackbar(message)
+            viewModel.clearError()
+        }
+    }
+
+    val onDelete: (JugadorApi) -> Unit = { jugadorApi ->
+        viewModel.onEvent(JugadorApiEvent.JugadorChange(jugadorApi.id ?: 0))
+        viewModel.onEvent(JugadorApiEvent.Delete)
+    }
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+        floatingActionButton = {
+            FloatingActionButton(onClick = createJugador) {
+                Icon(Icons.Filled.Add, contentDescription = null)
+            }
+        }
+    ) { paddingValues ->
+        LazyColumn(
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(
+                items = state.jugadores,
+                key = { jugador -> jugador.id ?: 0 }
+            ) { jugador ->
+                JugadorCardItem(
+                    jugador = jugador,
+                    goToJugador = { goToJugadores(jugador.id ?: 0) },
+                    deleteJugador = { onDelete(jugador) }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun JugadorCardItem(
+    jugador: JugadorApi,
+    goToJugador: () -> Unit,
+    deleteJugador: () -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp),
+        elevation = CardDefaults.cardElevation(4.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .padding(vertical = 16.dp)
+                .fillMaxWidth()
+        ) {
+            Column(modifier = Modifier.weight(1f).padding(start = 8.dp)) {
+                Text(text = "Id: ${jugador.id}", fontWeight = FontWeight.Bold)
+                Text(text = jugador.nombre, fontSize = 14.sp)
+                Text(text = "${jugador.partidas} Partidas jugadas")
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+            IconButton(onClick = goToJugador) {
+                Icon(Icons.Filled.Edit, contentDescription = null)
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+            IconButton(onClick = deleteJugador) {
+                Icon(Icons.Filled.Delete, contentDescription = null)
+            }
+        }
+    }
+}

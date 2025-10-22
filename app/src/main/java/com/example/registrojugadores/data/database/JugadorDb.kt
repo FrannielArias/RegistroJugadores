@@ -8,20 +8,23 @@ import com.example.registrojugadores.data.jugadores.local.JugadorEntity
 import com.example.registrojugadores.data.logros.local.LogroDao
 import com.example.registrojugadores.data.logros.local.LogroEntity
 import com.example.registrojugadores.data.partidas.local.PartidaEntity
+import com.example.registrojugadores.data.ticTacToeApi.Local.JugadorApiDao
+import com.example.registrojugadores.data.ticTacToeApi.Local.JugadorApiEntity
 
 @Database(
     entities = [
         JugadorEntity::class,
         PartidaEntity::class,
-        LogroEntity::class
+        LogroEntity::class,
+        JugadorApiEntity::class
     ],
-    version = 5,
+    version = 6,
     exportSchema = false
 )
 abstract class JugadorDb : RoomDatabase(){
     abstract fun jugadorDao(): JugadorDao
     abstract fun partidaDao(): PartidaDao
-
     abstract fun logroDao(): LogroDao
 
+    abstract fun JugadorApiDaoDao(): JugadorApiDao
 }

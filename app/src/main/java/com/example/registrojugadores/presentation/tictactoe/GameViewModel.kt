@@ -1,83 +1,52 @@
 package com.example.registrojugadores.presentation.tictactoe
 
-
-
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.registrojugadores.data.remote.dto.PartidaDto
+import com.example.registrojugadores.domain.ticTacToeApi.useCase.PartidasUseCases
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-data class GameUiState(
-    val board: List<Player?> = List(9) { null },
-    val currentPlayer: Player = Player.X,
-    val winner: Player? = null,
-    val isDraw: Boolean = false,
-    val playerSelection: Player? = null,
-    val gameStarted: Boolean = false
+data class PartidasUiState(
+    val loading: Boolean = false,
+    val partidas: List<PartidaDto> = emptyList(),
+    val error: String? = null
 )
 
-class GameViewModel : ViewModel() {
-    private val _state = MutableStateFlow(GameUiState())
-    val state: StateFlow<GameUiState> = _state.asStateFlow()
+@HiltViewModel
+class PartidasViewModel @Inject constructor(
+    private val useCases: PartidasUseCases
+) : ViewModel() {
 
+    private val _ui = MutableStateFlow(PartidasUiState())
+    val ui: StateFlow<PartidasUiState> = _ui
 
-    fun selectPlayer(player: Player) {
-        _state.update { it.copy(playerSelection = player) }
-    }
-
-    fun startGame() {
-        if (_state.value.playerSelection != null) {
-            _state.update { it.copy(gameStarted = true) }
-        }
-    }
-
-    fun onCellClick(index: Int) {
-        if (_state.value.board[index] != null || _state.value.winner != null) {
-            return
-        }
-
-        val newBoard = _state.value.board.toMutableList()
-        newBoard[index] = _state.value.currentPlayer
-
-        val newWinner = checkWinner(newBoard)
-        val isDraw = newBoard.all { it != null } && newWinner == null
-
-        _state.update {
-            it.copy(
-                board = newBoard,
-                currentPlayer = if (it.currentPlayer == Player.X) Player.O else Player.X,
-                winner = newWinner,
-                isDraw = isDraw
-            )
-        }
-    }
-
-    fun restartGame() {
-        _state.value = GameUiState()
-    }
-
-    private fun checkWinner(board: List<Player?>): Player? {
-        val winningLines = listOf(
-            // Horizontales
-            listOf(0, 1, 2), listOf(3, 4, 5), listOf(6, 7, 8),
-            // Verticales
-            listOf(0, 3, 6), listOf(1, 4, 7), listOf(2, 5, 8),
-            // Diagonales
-            listOf(0, 4, 8), listOf(2, 4, 6)
-        )
-
-        for (line in winningLines) {
-            val (a, b, c) = line
-            if (board[a] != null && board[a] == board[b] && board[a] == board[c]) {
-                return board[a] // Devuelve el jugador ganador (X o O)
+    fun load() {
+        viewModelScope.launch {
+            try {
+                _ui.value = _ui.value.copy(loading = true, error = null)
+                val list = useCases.list()
+                _ui.value = _ui.value.copy(loading = false, partidas = list)
+            } catch (e: Exception) {
+                _ui.value = _ui.value.copy(loading = false, error = e.message ?: "Error")
             }
         }
-        return null // No hay ganador
     }
-}
 
-enum class Player(val symbol: String) {
-    X("X"),
-    O("O")
+    fun crear(onCreated: (Int) -> Unit) {
+        viewModelScope.launch {
+            try {
+                _ui.value = _ui.value.copy(loading = true, error = null)
+                val creada = useCases.create(jugador1Id = 1, jugador2Id = 2)
+                val list = useCases.list()
+                _ui.value = _ui.value.copy(loading = false, partidas = list)
+                onCreated(creada.partidaId)
+            } catch (e: Exception) {
+                _ui.value = _ui.value.copy(loading = false, error = e.message ?: "Error")
+            }
+        }
+    }
 }
